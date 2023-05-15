@@ -1,9 +1,9 @@
-INSERT INTO Departments (DepartmentID, DepartmentName)
-VALUES (1, 'Sales'), 
-(2, 'Engineering'), 
-(3, 'Finance'), 
-(4, 'Legal'), 
-(5, 'Human Resources');
+INSERT INTO Departments (DepartmentName)
+VALUES ('Sales'), 
+('Engineering'), 
+('Finance'), 
+('Legal'), 
+('Human Resources');
 
 INSERT INTO Roles (Title, Salary, DepartmentID)
 VALUES ('Sales Lead', 100000.00, 1), 
