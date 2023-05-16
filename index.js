@@ -1,6 +1,7 @@
 const fs = require('fs');
 const db = require('./db');
 const {prompt} = require('inquirer');
+const { findAllEmployees } = require('./db');
 
 
 
@@ -118,7 +119,7 @@ function viewEmployees() {
 function addDepartment() {
     prompt([
         {
-            name: 'name',
+            name: 'department_name',
             message: 'What is the name of the department?'
         }
     ])
@@ -205,6 +206,42 @@ function addEmployee() {
     }
     )
     })
+}
+
+function updateEmployee() {
+    db.findAllEmployees()
+    .then(([rows]) => { 
+        let employees = rows;
+        const employeeChoices = employees.map(({ id, first_name, last_name }) => ({
+            name: `${first_name} ${last_name}`,
+            value: id
+        }))
+        db.findAllRoles()
+        .then(([rows]) => {
+            let roles = rows;
+            const roleChoices = roles.map(({ id, title }) => ({
+                name: title,
+                value: id
+            }))
+            prompt([
+                {
+                    type: 'list',
+                    name: 'employee_id',
+                    message: 'Which employee would you like to update?',
+                    choices: employeeChoices
+                },
+                {
+                    type: 'list',
+                    name: 'role_id',
+                    message: 'Which role would you like to assign to the selected employee?',
+                    choices: roleChoices
+                }
+            ])
+            .then(res => db.updateEmployeeRole(res))
+            .then(() => questions());
+        })
+    }
+    )
 }
 
 

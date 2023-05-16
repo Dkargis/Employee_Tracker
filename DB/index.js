@@ -1,3 +1,4 @@
+const { up } = require('inquirer/lib/utils/readline');
 const connection = require('./connection');
 
 class DB {
@@ -62,7 +63,13 @@ createEmployee(employee){
         employee
     );
     }
+
+    updateEmployeeRole(employeeId, roleId) {
+        return this.connection.promise().query(
+          'UPDATE employees SET role_id = ? WHERE id = ?',
+          [roleId, employeeId]
+        );
+      }
+
 };
-
-
 module.exports = new DB(connection);
