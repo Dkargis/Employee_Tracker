@@ -4,41 +4,42 @@ class DB {
 constructor(connection) {
     this.connection = connection;
 }
-viewDepartments() {
-    return this.connection.query(
-        'SELECT * FROM department'
+
+findAllDepartments() {
+    return this.connection.promise().query(
+        'SELECT * FROM departments;'
     );
 }
-viewRoles(){
-    return this.connection.query(
-        'SELECT * FROM role'
+findAllRoles(){
+    return this.connection.promise().query(
+        'SELECT * FROM roles;'
     );
 }
-viewAllEmployees(){
-    return this.connection.query(
-        'SELECT * FROM employee'
+findAllEmployees(){
+    return this.connection.promise().query(
+        'SELECT * FROM employees;'
     );
 }
 addDepartment(department){
-    return this.connection.query(
+    return this.connection.promise().query(
         'INSERT INTO department SET ?',
         department
     );
 }
 addRole(role){
-    return this.connection.query(
+    return this.connection.promisew().query(
         'INSERT INTO role SET ?',
         role
     );
 }
 addEmployee(employee){
-    return this.connection.query(
+    return this.connection.promise().query(
         'INSERT INTO employee SET ?',
         employee
     );
 }
 updateEmployee(employee){
-    return this.connection.query(
+    return this.connection.promise().query(
         'UPDATE employee SET ? WHERE ?',
         employee
     );

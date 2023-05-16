@@ -2,6 +2,11 @@ const fs = require('fs');
 const db = require('./db');
 const {prompt} = require('inquirer');
 
+
+
+
+
+
 init();
 
 function init() {
@@ -81,14 +86,35 @@ function questions() {
 };
 
 function viewDepartments() {
-    db.viewDepartments()
+    db.findAllDepartments()
     .then(([rows]) => {
         let departments = rows;
         console.log('\n');
         console.table(departments);
     })
     .then(() => questions());
-}
+};
+
+function viewRoles() {
+    db.findAllRoles()
+    .then(([rows]) => {
+        let roles = rows;
+        console.log('\n');
+        console.table(roles);
+    })
+    .then(() => questions());
+};
+
+function viewEmployees() {
+    db.findAllEmployees()
+    .then(([rows]) => {
+        let employees = rows;
+        console.log('\n');
+        console.table(employees);
+    })
+    .then(() => questions());
+};
+
 
 
 
