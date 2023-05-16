@@ -115,6 +115,96 @@ function viewEmployees() {
     .then(() => questions());
 };
 
+function addDepartment() {
+    prompt([
+        {
+            name: 'name',
+            message: 'What is the name of the department?'
+        }
+    ])
+    .then(res => {
+        let name = res;
+        db.createDepartment(name)
+    })
+    .then(() => questions());
+};
 
+function addRole() {
+    db.findAllDepartments()
+    .then(([rows]) => {
+        let departments = rows;
+        const departmentChoices = departments.map(({ id, name }) => ({
+            name: name,
+            value: id
+        }));
+        prompt([
+            {
+                name: 'title',
+                message: 'What is the name of the role?'
+            },
+            {
+                name: 'salary',
+                message: 'What is the salary of the role?'
+            },
+            {
+                type: 'list',
+                name: 'department_id',
+                message: 'Which department does the role belong to?',
+                choices: departmentChoices
+            }
+        ])
+        .then(role => {
+            db.createRole(role)
+        })
+        .then(() => questions());
+    })
+}
+
+function addEmployee() {
+    db.findAllEmployees()
+    .then(([rows]) => {
+        let employees = rows;
+        const employeeChoices = employees.map(({ id, first_name, last_name }) => ({
+            name: `${first_name} ${last_name}`,
+            value: id
+        }))
+        db.findAllRoles()
+        .then(([rows]) => {
+            let roles = rows;
+            const roleChoices = roles.map(({ id, title }) => ({
+                name: title,
+                value: id
+            }))
+        
+        prompt([
+            {
+                name: 'first_name',
+                message: 'What is the first name of the employee?'
+            },
+            {
+                name: 'last_name',
+                message: 'What is the last name of the employee?'
+            },
+            {
+                type: 'list',
+                name: 'role_id',
+                message: 'What is the role of the employee?',
+                choices: roleChoices
+            },
+            {
+                type: 'list',
+                name: 'manager_id',
+                message: 'Who is the manager of the employee?',
+                choices: employeeChoices
+            }
+        ])
+        .then(employee => {
+            db.createEmployee(employee)
+        })
+        .then(() => questions());
+    }
+    )
+    })
+}
 
 

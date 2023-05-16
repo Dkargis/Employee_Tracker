@@ -27,7 +27,7 @@ addDepartment(department){
     );
 }
 addRole(role){
-    return this.connection.promisew().query(
+    return this.connection.promise().query(
         'INSERT INTO role SET ?',
         role
     );
@@ -44,6 +44,25 @@ updateEmployee(employee){
         employee
     );
 }
+createDepartment(name){
+    return this.connection.promise().query(
+        'INSERT INTO departments SET ?',
+        name
+    );
+}
+createRole(role){
+    return this.connection.promise().query(
+        'INSERT INTO roles SET ?',
+        role
+    );
+}
+createEmployee(employee){
+    return this.connection.promise().query(
+        'INSERT INTO employees SET ?',
+        employee
+    );
+    }
 };
+
 
 module.exports = new DB(connection);
