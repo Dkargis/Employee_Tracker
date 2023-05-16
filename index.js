@@ -1,6 +1,6 @@
-const inqier = require('inquirer');
 const fs = require('fs');
 const db = require('./db');
+const {prompt} = require('inquirer');
 
 init();
 
@@ -80,6 +80,15 @@ function questions() {
 
 };
 
+function viewDepartments() {
+    db.viewDepartments()
+    .then(([rows]) => {
+        let departments = rows;
+        console.log('\n');
+        console.table(departments);
+    })
+    .then(() => questions());
+}
 
 
 
