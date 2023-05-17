@@ -39,12 +39,6 @@ addEmployee(employee){
         employee
     );
 }
-updateEmployee(employee){
-    return this.connection.promise().query(
-        'UPDATE employee SET ? WHERE ?',
-        employee
-    );
-}
 createDepartment(name){
     return this.connection.promise().query(
         'INSERT INTO departments SET ?',
